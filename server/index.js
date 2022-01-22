@@ -10,11 +10,11 @@ const BUILD_DIR = path.join(process.cwd(), "server/build");
 const app = express();
 app.use(compression());
 
-// You may want to be more aggressive with this caching
-app.use(express.static("public", { maxAge: "1h" }));
-
-// Remix fingerprints its assets so we can cache forever
-app.use(express.static("public/build", { immutable: true, maxAge: "1y" }));
+app.use(
+  "/build",
+  express.static("static/build", { immutable: true, maxAge: "5y" })
+);
+app.use(express.static("static", { maxAge: "72h" }));
 
 app.use(morgan("tiny"));
 app.all(
@@ -28,10 +28,7 @@ app.all(
       }
 );
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
-});
+app.listen(3000);
 
 ////////////////////////////////////////////////////////////////////////////////
 function purgeRequireCache() {
