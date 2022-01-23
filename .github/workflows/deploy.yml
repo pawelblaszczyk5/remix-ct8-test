@@ -18,14 +18,17 @@ jobs:
           server: s1.ct8.pl
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          dry-run: true
           server-dir: public_nodejs/
 
       - name: Build and run
         uses: fifsky/ssh-action@master
         with:
-          command: whoami
+          command: |
+            cd domains/${{ CT8_DOMAIN }}/public_nodejs/
+            npm ci
+            npm run build
+            devil www restart ${{ CT8_DOMAIN }}
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USERNAME }}
           pass: ${{ secrets.SSH_PASSWORD}}
-          args: "-tt -vvv"
+          args: "-tt"

@@ -26,6 +26,7 @@ export default function Index() {
             Remix Docs
           </a>
         </li>
+        <li>Deployed from action</li>
       </ul>
     </div>
   );
