@@ -1,10 +1,12 @@
 import {
   Links,
   LiveReload,
+  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
 
@@ -12,7 +14,13 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
+export const loader: LoaderFunction = () => {
+  return process.env.CT8_TEST;
+};
+
 export default function App() {
+  const data = useLoaderData();
+
   return (
     <html lang="en">
       <head>
@@ -25,6 +33,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
+        {data}
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
