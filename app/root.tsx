@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = () => {
-  return process.env.CT8_TEST;
+  return { data: process.env.CT8_TEST };
 };
 
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        {data}
+        {JSON.stringify(data)}
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
