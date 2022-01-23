@@ -24,10 +24,10 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd domains/${{ CT8_DOMAIN }}/public_nodejs/
+            cd domains/${{ secrets.CT8_DOMAIN }}/public_nodejs/
             npm ci
             npm run build
-            devil www restart ${{ CT8_DOMAIN }}
+            devil www restart ${{ secrets.CT8_DOMAIN }}
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USERNAME }}
           pass: ${{ secrets.SSH_PASSWORD}}
