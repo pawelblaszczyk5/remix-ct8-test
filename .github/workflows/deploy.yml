@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
 
-      - name: 📂 Sync files
+      - name: Upload files
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
           server: s1.ct8.pl
@@ -20,3 +20,11 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           dry-run: true
           server-dir: public_nodejs/
+
+      - name: Build and run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: whoami
